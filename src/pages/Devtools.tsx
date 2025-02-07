@@ -1,9 +1,8 @@
 chrome.devtools.panels.create(
-    "My Extension",
-    "icons/icon48.png",
-    "panel.html", // Links to your custom DevTools panel
-    function (panel) {
-      console.log("DevTools panel created:", panel);
-    }
-  );
-  
+  "My Panel",
+  "icons/icon128.png",
+  "panel.html",
+  function (panel) {
+      console.log("Custom panel created!");
+  }
+);
