@@ -108,7 +108,8 @@ This project is open-source and licensed under the MIT License.
 Feel free to open issues and submit pull requests. Contributions are welcome! 🎉
 
  
-This Markdown file includes everything—installation steps, configurations, development tips, and future enhancements. 🚀
+This Markdown file includes everything—installation steps, configurations, development tips, 
+and future enhancements. 🚀
 
 
 
