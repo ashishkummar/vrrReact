@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "types": ["chrome"],
+      "jsx" : "react-jsx",   
+      "moduleResolution": "node",  
+      "allowSyntheticDefaultImports": true, // ✅ Allows default imports for React
+      "esModuleInterop": true, // ✅ Ensures compatibility with ES modules
+      "strict": true, // ✅ Recommended for better TypeScript support
+      "resolveJsonModule": true,
+      "skipLibCheck": true
+    }
+  }
+  
