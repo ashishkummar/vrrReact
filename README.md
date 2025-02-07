@@ -111,6 +111,7 @@ Feel free to open issues and submit pull requests. Contributions are welcome! �
 This Markdown file includes everything—installation steps, configurations, development tips, 
 and future enhancements. 🚀
 
+Thanks!
 
 
 
