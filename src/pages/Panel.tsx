@@ -1,13 +1,22 @@
-import React from "react";
+ import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+
+
 import { createRoot } from "react-dom/client";
+import { Header } from "../Components/Header";
+ 
+import  TrackerComponent from "./TrackerComponent"
+
+ 
 
 const Panel = () => {
     return (
-        <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-            <h2>My DevTools Panel</h2>
-            <p>Welcome to your custom DevTools panel.</p>
-            <button onClick={() => alert("Button Clicked!")}>Click Me</button>
-        </div>
+        <div>
+              <TrackerComponent />
+
+        <p>Welcome to the DevTools Panel!</p>
+      </div>
     );
 };
 

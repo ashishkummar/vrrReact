@@ -1,4 +1,10 @@
-# 🚀 Manifest V3 Chrome Extension Boilerplate  
+# 🚀 vrrReact
+
+A pixel tracker Chrome extension. This can track click and impression trackers.
+
+---
+
+## 🚀 Manifest V3 Chrome Extension Boilerplate  
 
 A minimal and production-ready boilerplate for building Chrome extensions using **React + TypeScript + Webpack** with **Manifest V3**.
 
@@ -17,20 +23,43 @@ A minimal and production-ready boilerplate for building Chrome extensions using 
 ## 📂 Project Structure  
 
 ```plaintext
-src/
-│── background/         # Service worker for background tasks
-│── content/            # Content scripts injected into web pages
-│── popup/              # React-based popup UI
-│── pages/              # DevTools and panel pages
-│── options/            # Options page UI
-│── assets/             # Icons and other assets
-│── styles/             # CSS styles
-public/
-│── manifest.json       # Chrome extension manifest
-│── template.html       # Base HTML for pages
-dist/                   # Compiled extension files
-webpack.config.js       # Webpack configuration
-tsconfig.json           # TypeScript configuration
+vrrReact/
+│── dist/                     # Compiled extension output
+│── node_modules/              # Dependencies
+│── public/                    # Static assets
+│   │── icons/                 # Extension icons
+│   │── devtools.html          # DevTools panel HTML
+│   │── panel.html             # Panel page HTML
+│   │── template.html          # Base template HTML
+│   └── manifest.json          # Chrome extension manifest
+│
+│── src/                       # Source code
+│   │── background/            # Background scripts
+│   │   │── content/           # Content scripts within background
+│   │   └── background.ts      # Background script
+│   │── Components/            # Shared React components
+│   │   │── Header.tsx         # Header component
+│   │   └── SmoothScroll.tsx   # Smooth scrolling component
+│   │── content/               # Content scripts
+│   │   └── content.ts         # Main content script
+│   │── pages/                 # Extension pages
+│   │   │── Devtools.tsx       # DevTools panel React component
+│   │   │── Panel.tsx          # Main panel React component
+│   │   └── TrackerComponent.tsx  # Tracking component
+│   │── popup/                 # Popup UI (empty for now)
+│   │── styles/                # CSS/SCSS styles
+│   │── utils/                 # Utility functions
+│   │   │── filter.ts          # Filter utility
+│   │   └── helpers.ts         # Helper functions
+│   │── App.tsx                # Main App component
+│   └── index.tsx              # Entry point
+│
+│── .gitignore                 # Git ignore file
+│── package.json               # Dependencies and scripts
+│── package-lock.json          # Dependency lockfile
+│── README.md                  # Project documentation
+│── tsconfig.json              # TypeScript configuration
+└── webpack.config.js          # Webpack configuration
 
 
 🚀 Getting Started

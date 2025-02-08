@@ -7,7 +7,12 @@
       "esModuleInterop": true, // ✅ Ensures compatibility with ES modules
       "strict": true, // ✅ Recommended for better TypeScript support
       "resolveJsonModule": true,
-      "skipLibCheck": true
+      "skipLibCheck": true,
+      "lib": ["ES2016", "dom"],
+      
+
+      "target": "ES6",
+      
     }
   }
   

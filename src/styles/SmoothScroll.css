@@ -1,0 +1,59 @@
+/* Container Styles */
+.smoothscroll-container {
+    background: linear-gradient(135deg, #1e293b 0%, #111827 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+/* Title */
+.smoothscroll-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Scrollable List */
+.smoothscroll-list {
+    width: 100%;
+    height: 220px;
+    overflow-y: auto;
+    border: 1px solid #475569;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+/* Individual List Item */
+.smoothscroll-item {
+    background-color: #334155;
+    color: white;
+    border-bottom: 1px solid #475569;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover Effect */
+.smoothscroll-item:hover {
+    background-color: #2563eb;
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Custom Scrollbar */
+.smoothscroll-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.smoothscroll-list::-webkit-scrollbar-thumb {
+    background-color: #475569;
+    border-radius: 4px;
+}
+
+.smoothscroll-list::-webkit-scrollbar-thumb:hover {
+    background-color: #2563eb;
+}
