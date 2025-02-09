@@ -114,12 +114,10 @@ export default function TrackerComponent() {
 
         useEffect(() => {
             const currentTabId = chrome.devtools.inspectedWindow.tabId; // Get the active DevTools tab ID
-            console.log("🆔 DevTools tabId:", currentTabId);
-        
+         
             const handleTabUpdate = (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
                 if (tabId === currentTabId && changeInfo.status === "loading" && tab.active) {
-                    console.log(`🔄 Active tab ID ${tabId} is reloading.`);
-        
+         
                     if (deleteDataRef.current) {
                         deleteDataRef.current("PCLIVE_REQUEST");
                         deleteDataRef.current("IMP_REQUEST");
