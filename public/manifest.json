@@ -3,7 +3,7 @@
   "name": "React Chrome Extension",
   "version": "1.0",
   "description": "A Chrome extension built with React and Manifest V3",
-  "permissions": ["webRequest", "activeTab", "storage", "tabs"],
+  "permissions": ["webRequest", "activeTab", "storage", "tabs", "declarativeNetRequestWithHostAccess", "declarativeNetRequest", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js",
