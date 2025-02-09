@@ -20,13 +20,13 @@ export const UpdateMessage = () => {
     );
 };
 
-export const Updater = () => {
+export const Updater = ({ ver }:{ver:string}) => {
     const [configData, setConfigData] = useState<Record<string, any> | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [updateNow, setUpdateNow] = useState(false);
 
-    const version = "8.1.00"; // Current version of this component
+    const version = ver 
     const _confJson = "https://creative.exponential.com/creative/devshowcase/VTT/config.json?r=" + new Date().getTime();
 
     useEffect(() => {
@@ -62,8 +62,8 @@ export const Updater = () => {
     }
 
     return (
-        <div >
-                {updateNow && <span onClick={downlodNewVersion}><UpdateMessage/></span>}
+        <div >  
+                {updateNow && <span onClick={downlodNewVersion}><UpdateMessage  /></span>}
         </div>
     );
 };

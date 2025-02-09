@@ -57,9 +57,11 @@ export function parseVideoRequest(details: chrome.webRequest.WebResponseHeadersD
 }
 
 
-/////////////////// IMP ...
+/////////////////// IMP ... 
 export function parseImpRequest(details: chrome.webRequest.WebResponseHeadersDetails, devToolsPort: chrome.runtime.Port | null) {
     if (details.url.includes("intLive") && details.statusCode === 200) {
+
+ 
         if (devToolsPort) {
             const custom4Value = getParameterByName("custom4", details.url);
             const custom3Value = getParameterByName("custom3", details.url);
@@ -114,8 +116,7 @@ export function parseClickRequest(details: chrome.webRequest.WebResponseHeadersD
   
     
     if (details.url.includes("clickLive") && details.statusCode === 200) {
-        console.log("parseClickRequest ", details.url, devToolsPort)
-        if (devToolsPort) {
+         if (devToolsPort) {
             const custom4Value = getParameterByName("custom4", details.url);
             const custom3Value = getParameterByName("custom3", details.url);
             const custom1Value = getParameterByName("custom1", details.url);
@@ -172,11 +173,9 @@ export function parseClickRequest(details: chrome.webRequest.WebResponseHeadersD
 export function getVIDname(msg: MessageData): string | undefined {
     let _finalMessage = "";
 
-    console.log(msg)
-
+ 
     if (!msg.video || !msg.video.video) {
-        console.log("msg.video or msg.video.video -  " , msg);
-        return undefined;
+         return undefined;
     }
 
     let vidPxl = msg.video.video;
@@ -218,8 +217,7 @@ export function getIMPname(msg: MessageData): string | undefined {
         if (msg.pixel.ver === "3.12") {
             if (_i.includes("fr:")) {
                 _ii = _i.slice(_i.indexOf("fr:") + 3).split(";")[0];
-                console.log("Extracted _ii (ver 3.12, fr:):", _ii);
-                _intLiveInfo += _ii;
+                 _intLiveInfo += _ii;
             } else {
                 console.log("No 'fr:' found in version 3.12.");
             }
@@ -227,23 +225,19 @@ export function getIMPname(msg: MessageData): string | undefined {
             if (!msg.pixel.SE) {
                 if (_i.includes("fr:")) {
                     _ii = _i.slice(_i.indexOf("fr:") + 3).split(";")[0];
-                    console.log("Extracted _ii (no SE, fr:):", _ii);
-                    _intLiveInfo += _ii;
+                     _intLiveInfo += _ii;
                 } else if (!msg.pixel.ver) {
                     _ii = _i;
-                    console.log("Extracted _ii (no version defined):", _ii);
-                    _intLiveInfo += _ii;
+                     _intLiveInfo += _ii;
                 } else {
                     console.log("No 'fr:' found, and version exists.");
                 }
             } else {
                 if (_i.includes("id:")) {
                     _ii = _i.slice(_i.indexOf("id:") + 3).split(";")[0];
-                    console.log("Extracted _ii (SE exists, id:):", _ii);
-                } else {
+                 } else {
                     _ii = _i;
-                    console.log("Extracted _ii (SE exists, fallback to _i):", _ii);
-                }
+                 }
                 _intLiveInfo += _ii;
             }
         }
