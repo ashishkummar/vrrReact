@@ -8,7 +8,7 @@
   
   export const Header: React.FC = () => {
     const menuRef = React.useRef<Menu>(null);
-    const currentVersion="8.1.0"
+    const currentVersion="8.1.0"; // Current version of this component
   
     // Menu Items
     const menuItems = [
@@ -22,7 +22,7 @@
         <div style={{display:"flex", alignItems: "center", gap: "8px" }} className="flex items-center space-x-2 h-10">
         <img alt="Logo" width="30" height="30" src="icons/icon16.png"/>
         <span className="text-lg font-semibold"> VTT {currentVersion}</span>
-        <Updater />
+        <Updater ver ={currentVersion} />
     </div>
     
     );
