@@ -1,0 +1,24 @@
+.tickerWrapper {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-left: 10px;
+    font-size: 11px;
+}
+
+.ticker {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scrollTicker 10s linear infinite;
+ }
+
+@keyframes scrollTicker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.messageWrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

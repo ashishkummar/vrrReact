@@ -3,10 +3,12 @@
   import { Menubar } from "primereact/menubar";
   import { Button } from "primereact/button";
   import { Menu } from "primereact/menu";
+  import { Updater } from "./Updater"; 
    
   
   export const Header: React.FC = () => {
     const menuRef = React.useRef<Menu>(null);
+    const currentVersion="8.1.0"
   
     // Menu Items
     const menuItems = [
@@ -19,7 +21,8 @@
     const start = (
         <div style={{display:"flex", alignItems: "center", gap: "8px" }} className="flex items-center space-x-2 h-10">
         <img alt="Logo" width="30" height="30" src="icons/icon16.png"/>
-        <span className="text-lg      font-semibold"> PixelPulse</span>
+        <span className="text-lg font-semibold"> VTT {currentVersion}</span>
+        <Updater />
     </div>
     
     );

@@ -13,6 +13,7 @@ import  TrackerComponent from "./TrackerComponent"
 const Panel = () => {
     return (
         <div>
+              <Header/>
               <TrackerComponent />
 
         <p>Welcome to the DevTools Panel!</p>
