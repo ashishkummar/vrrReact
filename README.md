@@ -2,11 +2,6 @@
 
 A pixel tracker Chrome extension. This can track click and impression trackers.
 
----
-
-## 🚀 Manifest V3 Chrome Extension Boilerplate  
-
-A minimal and production-ready boilerplate for building Chrome extensions using **React + TypeScript + Webpack** with **Manifest V3**.
 
 ---
 
