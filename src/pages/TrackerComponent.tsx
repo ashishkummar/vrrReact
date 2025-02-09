@@ -18,15 +18,22 @@ type Action =
 function reducer(state: State, action: Action): State {
     switch (action.type) {
         case "PCLIVE_REQUEST":
-            return { ...state, videoPCliveTrackers: [...state.videoPCliveTrackers, action.payload] };
+            return action.payload === "" 
+                ? { ...state, videoPCliveTrackers: [] } // Clear array
+                : { ...state, videoPCliveTrackers: [...state.videoPCliveTrackers, action.payload] };
         case "IMP_REQUEST":
-            return { ...state, impTrackers: [...state.impTrackers, action.payload] };
+            return action.payload === "" 
+                ? { ...state, impTrackers: [] } 
+                : { ...state, impTrackers: [...state.impTrackers, action.payload] };
         case "CLICK_REQUEST":
-            return { ...state, clickTrackers: [...state.clickTrackers, action.payload] };
+            return action.payload === "" 
+                ? { ...state, clickTrackers: [] } 
+                : { ...state, clickTrackers: [...state.clickTrackers, action.payload] };
         default:
             return state;
     }
 }
+
 
 export default function TrackerComponent() {
     const [state, dispatch] = useReducer(reducer, { videoPCliveTrackers:[],impTrackers: [], clickTrackers: [] });
@@ -93,12 +100,17 @@ export default function TrackerComponent() {
         }
     }, [state]);
 
+    function deleteData(type: "PCLIVE_REQUEST" | "IMP_REQUEST" | "CLICK_REQUEST") {
+        dispatch({ type, payload: "" }); // Clearing data
+    }
+    
+
     return (
         <>
-            <SmoothScrollUI name="Video" urls={state.videoPCliveTrackers} scrollRef={vidScrollRef} />
-            <SmoothScrollUI name="Impression" urls={state.impTrackers} scrollRef={impScrollRef} />
-            <SmoothScrollUI name="Clicks" urls={state.clickTrackers} scrollRef={clickScrollRef} />
-            
+            <SmoothScrollUI name="Clicks" onDelete={() => deleteData("CLICK_REQUEST")} data={state.clickTrackers} scrollRef={clickScrollRef} />
+            <SmoothScrollUI name="Impression" onDelete={() => deleteData("IMP_REQUEST")} data={state.impTrackers} scrollRef={impScrollRef} />
+            <SmoothScrollUI name="Video" onDelete={() => deleteData("PCLIVE_REQUEST")} data={state.videoPCliveTrackers} scrollRef={vidScrollRef} />
+ 
             
         </>
     );

@@ -16,6 +16,14 @@
     display: block;
 }
 
+
+.smoothscroll-titleHolder {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
+
 /* Scrollable List */
 .smoothscroll-list {
     width: 100%;

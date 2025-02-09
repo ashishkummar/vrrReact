@@ -39,10 +39,7 @@ export function parseVideoRequest(details: chrome.webRequest.WebResponseHeadersD
 
         if (devToolsPort) {
             const custom1Value = getParameterByName("custom1", details.url); 
-            const custom2Value = getParameterByName("event", details.url); 
-
-            
-            console.log(details.url)
+            const custom2Value = getParameterByName("event", details.url);  
 
             const pixelData3: MessageData = {
                 video: {
@@ -51,25 +48,10 @@ export function parseVideoRequest(details: chrome.webRequest.WebResponseHeadersD
                 }
             };
             if(getVIDname(pixelData3)){
-                console.log('---> ',pixelData3)
-              devToolsPort.postMessage({ type: "PCLIVE_REQUEST", url: getVIDname(pixelData3) });
+               devToolsPort.postMessage({ type: "PCLIVE_REQUEST", url: getVIDname(pixelData3) });
             }
         }
-        }
-        
-       // if (getParameterByName("event", details.url) != null) {
-         //   notifyDevtools({
-           //   video: {
-             //   video: getParameterByName("custom1", details.url),
-               // pxl: getParameterByName("event", details.url),
-              //},
-            //});
-         // }
-         
-
-
-
-
+        } 
     }
      
 }
