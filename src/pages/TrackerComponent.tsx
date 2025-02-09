@@ -8,7 +8,7 @@ interface State {
     clickTrackers: string[];
 }
 
-// Define action types
+// Define action types 
 type Action = 
     | { type: "PCLIVE_REQUEST"; payload: string }
     | { type: "IMP_REQUEST"; payload: string }
@@ -99,15 +99,54 @@ export default function TrackerComponent() {
         }
     }, [state]);
 
+    //
+    const deleteDataRef = useRef<((type: "PCLIVE_REQUEST" | "IMP_REQUEST" | "CLICK_REQUEST") => void) | null>(null);
+
+
     function deleteData(type: "PCLIVE_REQUEST" | "IMP_REQUEST" | "CLICK_REQUEST") {
         dispatch({ type, payload: "" }); // Clearing data
     }
 
+    // Store deleteData function inside ref
+        useEffect(() => {
+            deleteDataRef.current = deleteData;
+        }, []);
+
+        useEffect(() => {
+            const currentTabId = chrome.devtools.inspectedWindow.tabId; // Get the active DevTools tab ID
+            console.log("🆔 DevTools tabId:", currentTabId);
+        
+            const handleTabUpdate = (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+                if (tabId === currentTabId && changeInfo.status === "loading" && tab.active) {
+                    console.log(`🔄 Active tab ID ${tabId} is reloading.`);
+        
+                    if (deleteDataRef.current) {
+                        deleteDataRef.current("PCLIVE_REQUEST");
+                        deleteDataRef.current("IMP_REQUEST");
+                        deleteDataRef.current("CLICK_REQUEST");
+                    }
+                }
+            };
+        
+            chrome.tabs.onUpdated.addListener(handleTabUpdate);
+        
+            return () => {
+                chrome.tabs.onUpdated.removeListener(handleTabUpdate);
+            };
+        }, []);
+        
+        
+    
+
+
+
     return (
         <>
-            <SmoothScrollUI name="Clicks" onDelete={() => deleteData("CLICK_REQUEST")} data={state.clickTrackers} scrollRef={clickScrollRef} />
-            <SmoothScrollUI name="Impression" onDelete={() => deleteData("IMP_REQUEST")} data={state.impTrackers} scrollRef={impScrollRef} />
             <SmoothScrollUI name="Video" onDelete={() => deleteData("PCLIVE_REQUEST")} data={state.videoPCliveTrackers} scrollRef={vidScrollRef} />
+            <SmoothScrollUI name="Impression" onDelete={() => deleteData("IMP_REQUEST")} data={state.impTrackers} scrollRef={impScrollRef} />
+            <SmoothScrollUI name="Clicks" onDelete={() => deleteData("CLICK_REQUEST")} data={state.clickTrackers} scrollRef={clickScrollRef} />
+
+  
         </>
     );
 }

@@ -5,12 +5,19 @@ let activeTabs: { [key: number]: boolean } = {}; // Tracks which tabs have DevTo
 let currentActiveTabId: number | null = null;
 let tabPorts: { [key: number]: chrome.runtime.Port } = {}; // Stores ports per tab
  
+ 
 // Function to log DevTools connections
 function logTabConnections() {
     console.log("📊 Current DevTools & Tab Status:");
 
     if (Object.keys(activeTabs).length === 0) {
         console.log("No active DevTools panels.");
+         
+        //😢 will check it later 
+        //chrome.action.setIcon({ path: "icons/icon.png" });
+        //chrome.action.setIcon({ path: chrome.runtime.getURL("icons/disconnect.png") });
+
+
         return;
     }
 
@@ -23,7 +30,7 @@ function logTabConnections() {
             : "Disconnected ❌",
     }));
 
-    console.table(tabStatus);
+    //console.table(tabStatus); 
 }
 
 // Handle DevTools connection
@@ -108,8 +115,7 @@ chrome.webRequest.onHeadersReceived.addListener(
     (details) => {
         if (details.tabId && details.tabId !== -1) {  // Ensure tabId is valid
             const devToolsPort = devToolsPorts[details.tabId];  // Use devToolsPorts instead
-            console.log("devToolsPort ", devToolsPort);
-            
+ 
             if (devToolsPort) {
                 parseVideoRequest(details, devToolsPort);
                 parseImpRequest(details, devToolsPort);
