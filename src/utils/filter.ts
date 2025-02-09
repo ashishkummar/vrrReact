@@ -5,10 +5,13 @@ interface PixelData {
     clickLive?: string;
     ver?: string;
     SE?: boolean;
+    video?:string;
+    pxl?:string;
 }
 
 interface MessageData {
     pixel?: PixelData;
+    video?:PixelData
 }
 
 export function handleImageRequest(details: chrome.webRequest.WebResponseHeadersDetails, devToolsPort: chrome.runtime.Port | null) {
@@ -26,18 +29,52 @@ export function handleImageRequest(details: chrome.webRequest.WebResponseHeaders
     }
 }
 
-export function handleVideoRequest(details: chrome.webRequest.WebResponseHeadersDetails, devToolsPort: chrome.runtime.Port | null) {
-    if (/\.mp4/i.test(details.url)) {
-        console.log("🎥 Video Request Captured:", details.url);
+// Video PC LIVE
+
+export function parseVideoRequest(details: chrome.webRequest.WebResponseHeadersDetails, devToolsPort: chrome.runtime.Port | null) {
+    
+    if (details.url.includes("pcLive") && details.statusCode === 200) {
+     
+        if (getParameterByName("event", details.url) != null) {
 
         if (devToolsPort) {
-            console.log("🚀 Sending Video to DevTools:", details.url, devToolsPort);
-            devToolsPort.postMessage({ type: "VIDEO_REQUEST", url: details.url });
-        } else {
-            console.warn("⚠️ DevTools port is null. Cannot send video URL.");
+            const custom1Value = getParameterByName("custom1", details.url); 
+            const custom2Value = getParameterByName("event", details.url); 
+
+            
+            console.log(details.url)
+
+            const pixelData3: MessageData = {
+                video: {
+                    video: custom1Value || undefined,
+                    pxl: custom2Value || undefined,
+                }
+            };
+            if(getVIDname(pixelData3)){
+                console.log('---> ',pixelData3)
+              devToolsPort.postMessage({ type: "PCLIVE_REQUEST", url: getVIDname(pixelData3) });
+            }
         }
+        }
+        
+       // if (getParameterByName("event", details.url) != null) {
+         //   notifyDevtools({
+           //   video: {
+             //   video: getParameterByName("custom1", details.url),
+               // pxl: getParameterByName("event", details.url),
+              //},
+            //});
+         // }
+         
+
+
+
+
     }
+     
 }
+
+
 /////////////////// IMP ...
 export function parseImpRequest(details: chrome.webRequest.WebResponseHeadersDetails, devToolsPort: chrome.runtime.Port | null) {
     if (details.url.includes("intLive") && details.statusCode === 200) {
@@ -148,7 +185,38 @@ export function parseClickRequest(details: chrome.webRequest.WebResponseHeadersD
  
 
 
-// Utility function to extract name
+//**  Utility function to extract name */
+
+export function getVIDname(msg: MessageData): string | undefined {
+    let _finalMessage = "";
+
+    console.log(msg)
+
+    if (!msg.video || !msg.video.video) {
+        console.log("msg.video or msg.video.video -  " , msg);
+        return undefined;
+    }
+
+    let vidPxl = msg.video.video;
+
+    if (vidPxl.includes("fr:") || vidPxl.includes("st:")) {
+        vidPxl =
+            (filterVidPics(msg.video.video, "st:", ";") || "N/A") +
+            " | " +
+            (filterVidPics(msg.video.video, "fr:", ";") || "N/A") +
+            " : " +
+            msg.video.pxl;
+    } else {
+        vidPxl = msg.video.video + " : " + msg.video.pxl;
+    }
+
+    _finalMessage += vidPxl;
+
+    return _finalMessage.trim() !== "" ? _finalMessage : undefined;
+}
+
+    
+//**This will extract names for impresstion trackers */
 
 export function getIMPname(msg: MessageData): string | undefined {
     
@@ -209,7 +277,7 @@ export function getIMPname(msg: MessageData): string | undefined {
 }
 
 
-
+//***** This will extract name for video click */
 export function getCLICKname(msg: MessageData): string | undefined {
     let _clickLiveInfo = "";
 
@@ -257,7 +325,15 @@ export function getCLICKname(msg: MessageData): string | undefined {
 }
 
 
+function filterVidPics(_srt:string, _key:string, _lastChar:string) {
+    let str = _srt;
+    let n = str.slice(str.indexOf(_key) + _key.length);
+    n = n.slice(0, n.indexOf(_lastChar));
+    return n;
+  }
+
 // Utility function to get query parameters from URL
+/*
 function getParameterByName(name: string, url: string): string {
     if (!url) return "";
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -265,4 +341,10 @@ function getParameterByName(name: string, url: string): string {
     const results = regex.exec(url);
     if (!results) return "";
     return decodeURIComponent(results[2]?.replace(/\+/g, " ") || "");
+}
+*/
+
+function getParameterByName(name: string, url: string): string {
+    const results = new RegExp("[?&]" + name.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)").exec(url);
+    return results?.[2] ? decodeURIComponent(results[2].replace(/\+/g, " ")) : "";
 }

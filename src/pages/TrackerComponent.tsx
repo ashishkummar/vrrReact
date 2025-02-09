@@ -3,18 +3,22 @@ import SmoothScrollUI from "../Components/SmoothScroll";
 
 // Define state structure
 interface State {
+    videoPCliveTrackers: string[];
     impTrackers: string[];
     clickTrackers: string[];
 }
 
 // Define action types
 type Action = 
+    | {type:"PCLIVE_REQUEST"; payload: string }
     | { type: "IMP_REQUEST"; payload: string } 
     | { type: "CLICK_REQUEST"; payload: string };
 
 // Reducer function
 function reducer(state: State, action: Action): State {
     switch (action.type) {
+        case "PCLIVE_REQUEST":
+            return { ...state, videoPCliveTrackers: [...state.videoPCliveTrackers, action.payload] };
         case "IMP_REQUEST":
             return { ...state, impTrackers: [...state.impTrackers, action.payload] };
         case "CLICK_REQUEST":
@@ -25,11 +29,12 @@ function reducer(state: State, action: Action): State {
 }
 
 export default function TrackerComponent() {
-    const [state, dispatch] = useReducer(reducer, { impTrackers: [], clickTrackers: [] });
+    const [state, dispatch] = useReducer(reducer, { videoPCliveTrackers:[],impTrackers: [], clickTrackers: [] });
 
     const portRef = useRef<chrome.runtime.Port | null>(null);
     const impScrollRef = useRef<HTMLDivElement | null>(null);
     const clickScrollRef = useRef<HTMLDivElement | null>(null);
+    const vidScrollRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (!chrome.runtime?.connect) {
@@ -52,6 +57,8 @@ export default function TrackerComponent() {
                 dispatch({ type: "IMP_REQUEST", payload: message.url });
             } else if (message.type === "CLICK_REQUEST") {
                 dispatch({ type: "CLICK_REQUEST", payload: message.url });
+            } else if (message.type === "PCLIVE_REQUEST") {
+                dispatch({ type: "PCLIVE_REQUEST", payload: message.url });
             } else {
                 console.warn("⚠️ Unknown message type received:", message);
             }
@@ -75,18 +82,23 @@ export default function TrackerComponent() {
         if (clickScrollRef.current) {
             clickScrollRef.current.scrollTo({ top: clickScrollRef.current.scrollHeight, behavior: "smooth" });
         }
+        if (vidScrollRef.current) {
+            vidScrollRef.current.scrollTo({ top: vidScrollRef.current.scrollHeight, behavior: "smooth" });
+        }
     }, [state]);
 
     useEffect(() => {
-        if (state.impTrackers.length > 0 || state.clickTrackers.length > 0) {
+        if (state.videoPCliveTrackers.length > 0 || state.clickTrackers.length > 0) {
             console.log("🆕 Updated State:", state);
         }
     }, [state]);
 
     return (
         <>
+            <SmoothScrollUI name="Video" urls={state.videoPCliveTrackers} scrollRef={vidScrollRef} />
             <SmoothScrollUI name="Impression" urls={state.impTrackers} scrollRef={impScrollRef} />
             <SmoothScrollUI name="Clicks" urls={state.clickTrackers} scrollRef={clickScrollRef} />
+            
             
         </>
     );

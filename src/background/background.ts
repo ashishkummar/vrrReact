@@ -1,5 +1,5 @@
 
-import { handleImageRequest, handleVideoRequest, parseImpRequest, parseClickRequest } from "../utils/filter";
+import { handleImageRequest, parseVideoRequest, parseImpRequest, parseClickRequest } from "../utils/filter";
 
 
 let devToolsPort: chrome.runtime.Port | null = null; // Explicitly define the type
@@ -25,9 +25,8 @@ chrome.webRequest.onHeadersReceived.addListener(
     // Capture image URLs
     (details) => {
         // handleImageRequest(details, devToolsPort);
-        // handleVideoRequest(details, devToolsPort);
-
-        
+         
+         parseVideoRequest(details, devToolsPort);
          parseImpRequest(details, devToolsPort);
          parseClickRequest(details, devToolsPort)
     },
