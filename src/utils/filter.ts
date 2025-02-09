@@ -60,6 +60,9 @@ export function parseVideoRequest(details: chrome.webRequest.WebResponseHeadersD
 /////////////////// IMP ...
 export function parseImpRequest(details: chrome.webRequest.WebResponseHeadersDetails, devToolsPort: chrome.runtime.Port | null) {
     if (details.url.includes("intLive") && details.statusCode === 200) {
+
+console.log(devToolsPort)
+
         if (devToolsPort) {
             const custom4Value = getParameterByName("custom4", details.url);
             const custom3Value = getParameterByName("custom3", details.url);

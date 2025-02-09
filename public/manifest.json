@@ -1,37 +1,35 @@
 {
-    "manifest_version": 3,
-    "name": "React Chrome Extension",
-    "version": "1.0",
-    "description": "A Chrome extension built with React and Manifest V3",
-     "permissions": ["webRequest", "devtools", "activeTab","storage"],
-    "host_permissions": ["<all_urls>"],
-     "background": {
-      "service_worker": "background.js",
-      "type": "module"
-    
-    },
-    "devtools_page": "devtools.html",   
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "icons/icon16.png",
-        "48": "icons/icon48.png",
-        "128": "icons/icon128.png"
-      }
-    },
-    "options_page": "options.html",
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"],
-        "run_at": "document_start"
-      }
-    ],
-    "web_accessible_resources": [
-      {
-        "resources": ["icons/*.png"],
-        "matches": ["<all_urls>"]
-      }
-    ]
-  }
-  
+  "manifest_version": 3,
+  "name": "React Chrome Extension",
+  "version": "1.0",
+  "description": "A Chrome extension built with React and Manifest V3",
+  "permissions": ["webRequest", "activeTab", "storage", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "devtools_page": "devtools.html",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -10,8 +10,8 @@ interface State {
 
 // Define action types
 type Action = 
-    | {type:"PCLIVE_REQUEST"; payload: string }
-    | { type: "IMP_REQUEST"; payload: string } 
+    | { type: "PCLIVE_REQUEST"; payload: string }
+    | { type: "IMP_REQUEST"; payload: string }
     | { type: "CLICK_REQUEST"; payload: string };
 
 // Reducer function
@@ -19,7 +19,7 @@ function reducer(state: State, action: Action): State {
     switch (action.type) {
         case "PCLIVE_REQUEST":
             return action.payload === "" 
-                ? { ...state, videoPCliveTrackers: [] } // Clear array
+                ? { ...state, videoPCliveTrackers: [] } 
                 : { ...state, videoPCliveTrackers: [...state.videoPCliveTrackers, action.payload] };
         case "IMP_REQUEST":
             return action.payload === "" 
@@ -34,45 +34,47 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-
 export default function TrackerComponent() {
-    const [state, dispatch] = useReducer(reducer, { videoPCliveTrackers:[],impTrackers: [], clickTrackers: [] });
+    const [state, dispatch] = useReducer(reducer, { videoPCliveTrackers: [], impTrackers: [], clickTrackers: [] });
 
     const portRef = useRef<chrome.runtime.Port | null>(null);
     const impScrollRef = useRef<HTMLDivElement | null>(null);
     const clickScrollRef = useRef<HTMLDivElement | null>(null);
     const vidScrollRef = useRef<HTMLDivElement | null>(null);
+    const tabIdRef = useRef<number | null>(null);
 
     useEffect(() => {
         if (!chrome.runtime?.connect) {
             console.warn("⚠️ chrome.runtime.connect is not available.");
             return;
         }
-
+    
+        const tabId = chrome.devtools.inspectedWindow.tabId; // Get the current tab ID
+        console.log("🆔 DevTools tabId:", tabId);
+    
         try {
             portRef.current = chrome.runtime.connect({ name: "devtools" });
-            console.log(`✅ Connected to background script`);
+            portRef.current.postMessage({ type: "INIT", tabId }); // Send tabId to background
+            console.log(`✅ DevTools connected to background with tabId: ${tabId}`);
         } catch (error) {
             console.error("❌ Failed to connect to background script:", error);
             return;
         }
-
+    
         const messageListener = (message: { type: string; url: string }) => {
             console.log("📩 Received message:", message);
-
+    
             if (message.type === "IMP_REQUEST") {
                 dispatch({ type: "IMP_REQUEST", payload: message.url });
             } else if (message.type === "CLICK_REQUEST") {
                 dispatch({ type: "CLICK_REQUEST", payload: message.url });
             } else if (message.type === "PCLIVE_REQUEST") {
                 dispatch({ type: "PCLIVE_REQUEST", payload: message.url });
-            } else {
-                console.warn("⚠️ Unknown message type received:", message);
             }
         };
-
+    
         portRef.current?.onMessage.addListener(messageListener);
-
+    
         return () => {
             if (portRef.current) {
                 portRef.current.onMessage.removeListener(messageListener);
@@ -81,17 +83,14 @@ export default function TrackerComponent() {
             }
         };
     }, []);
+    
 
     useEffect(() => {
-        if (impScrollRef.current) {
-            impScrollRef.current.scrollTo({ top: impScrollRef.current.scrollHeight, behavior: "smooth" });
-        }
-        if (clickScrollRef.current) {
-            clickScrollRef.current.scrollTo({ top: clickScrollRef.current.scrollHeight, behavior: "smooth" });
-        }
-        if (vidScrollRef.current) {
-            vidScrollRef.current.scrollTo({ top: vidScrollRef.current.scrollHeight, behavior: "smooth" });
-        }
+        [impScrollRef, clickScrollRef, vidScrollRef].forEach(ref => {
+            if (ref.current) {
+                ref.current.scrollTo({ top: ref.current.scrollHeight, behavior: "smooth" });
+            }
+        });
     }, [state]);
 
     useEffect(() => {
@@ -103,15 +102,12 @@ export default function TrackerComponent() {
     function deleteData(type: "PCLIVE_REQUEST" | "IMP_REQUEST" | "CLICK_REQUEST") {
         dispatch({ type, payload: "" }); // Clearing data
     }
-    
 
     return (
         <>
             <SmoothScrollUI name="Clicks" onDelete={() => deleteData("CLICK_REQUEST")} data={state.clickTrackers} scrollRef={clickScrollRef} />
             <SmoothScrollUI name="Impression" onDelete={() => deleteData("IMP_REQUEST")} data={state.impTrackers} scrollRef={impScrollRef} />
             <SmoothScrollUI name="Video" onDelete={() => deleteData("PCLIVE_REQUEST")} data={state.videoPCliveTrackers} scrollRef={vidScrollRef} />
- 
-            
         </>
     );
 }

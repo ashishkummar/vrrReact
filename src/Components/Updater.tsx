@@ -62,7 +62,7 @@ export const Updater = ({ ver }:{ver:string}) => {
     }
 
     return (
-        <div >
+        <div >  
                 {updateNow && <span onClick={downlodNewVersion}><UpdateMessage  /></span>}
         </div>
     );
