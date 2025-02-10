@@ -5,7 +5,7 @@ let activeTabs: { [key: number]: boolean } = {}; // Tracks which tabs have DevTo
 let currentActiveTabId: number | null = null;
 let tabPorts: { [key: number]: chrome.runtime.Port } = {}; // Stores ports per tab
  
- 
+  
 // Function to log DevTools connections
 function logTabConnections() {
     console.log("📊 Current DevTools & Tab Status:");
@@ -27,14 +27,14 @@ function logTabConnections() {
             ? tabId === String(currentActiveTabId)
                 ? "Connected ✅ (Active)"
                 : "Connected ⚠ (Inactive)"
-            : "Disconnected ❌",
+            : "Disconnected ❌", 
     }));
 
-    //console.table(tabStatus); 
+    console.table(tabStatus); 
 }
 
 // Handle DevTools connection
-chrome.runtime.onConnect.addListener((port) => {
+chrome.runtime.onConnect.addListener((port) => { 
     if (port.name === "devtools") {
         port.onMessage.addListener((message) => {
             if (message.type === "INIT" && message.tabId) {
