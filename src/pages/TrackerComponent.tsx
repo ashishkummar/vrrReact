@@ -100,7 +100,8 @@ export default function TrackerComponent() {
     }, [state]);
 
     //
-    const deleteDataRef = useRef<((type: "PCLIVE_REQUEST" | "IMP_REQUEST" | "CLICK_REQUEST") => void) | null>(null);
+ 
+    const deleteDataRef = useRef(deleteData); // Assign ref directly
 
 
     function deleteData(type: "PCLIVE_REQUEST" | "IMP_REQUEST" | "CLICK_REQUEST") {
@@ -116,6 +117,9 @@ export default function TrackerComponent() {
             const currentTabId = chrome.devtools.inspectedWindow.tabId; // Get the active DevTools tab ID
          
             const handleTabUpdate = (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+                
+                console.info("handleTabUpdate ", tabId, currentTabId, changeInfo.status,  tab.active)
+
                 if (tabId === currentTabId && changeInfo.status === "loading" && tab.active) {
          
                     if (deleteDataRef.current) {
@@ -126,10 +130,10 @@ export default function TrackerComponent() {
                 }
             };
         
-            chrome.tabs.onUpdated.addListener(handleTabUpdate);
+                chrome.tabs.onUpdated.addListener(handleTabUpdate);
         
             return () => {
-                chrome.tabs.onUpdated.removeListener(handleTabUpdate);
+                 chrome.tabs.onUpdated.removeListener(handleTabUpdate);
             };
         }, []);
         

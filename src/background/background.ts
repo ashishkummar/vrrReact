@@ -1,4 +1,6 @@
 import { handleImageRequest, parseVideoRequest, parseImpRequest, parseClickRequest } from "../utils/filter";
+import { createContextMenu } from "../utils/rightClick";
+
 
 let devToolsPorts: { [key: number]: chrome.runtime.Port } = {}; // Stores connected DevTools ports
 let activeTabs: { [key: number]: boolean } = {}; // Tracks which tabs have DevTools open
@@ -126,5 +128,11 @@ chrome.webRequest.onHeadersReceived.addListener(
     { urls: ["<all_urls>"] },
     ["responseHeaders"]
 );
+
+// Right Click Menu
+
+createContextMenu();
+
+
 
 ////::: ::- // //// git add .
