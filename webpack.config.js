@@ -10,7 +10,11 @@ module.exports = {
     devtools: "./src/pages/Devtools.tsx",
     panel: "./src/pages/Panel.tsx",
     content: "./src/content/content.ts",  
+<<<<<<< HEAD
     options: "./src/options/options.tsx" // ✅ Added missing entry
+=======
+    options: "./src/options/options.tsx"  
+>>>>>>> vttReactv2.3.0
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -38,7 +42,11 @@ module.exports = {
       patterns: [
         { from: "public/manifest.json", to: "manifest.json" },
         { from: "public/icons", to: "icons" },
+<<<<<<< HEAD
         { from: "src/content/content.js", to: "content.js" } // ✅ Ensure content script is copied
+=======
+        { from: "src/content/content.js", to: "content.js" }  
+>>>>>>> vttReactv2.3.0
       ]
     }), 
     new HtmlWebpackPlugin({

@@ -1,4 +1,7 @@
 import { handleImageRequest, parseVideoRequest, parseImpRequest, parseClickRequest } from "../utils/filter";
+import { createContextMenu } from "../utils/rightClick";
+import {parseDesigerConfig } from "../utils/designer-config.parser";
+
 
 let devToolsPorts: { [key: number]: chrome.runtime.Port } = {}; // Stores connected DevTools ports
 let activeTabs: { [key: number]: boolean } = {}; // Tracks which tabs have DevTools open
@@ -120,6 +123,7 @@ chrome.webRequest.onHeadersReceived.addListener(
                 parseVideoRequest(details, devToolsPort);
                 parseImpRequest(details, devToolsPort);
                 parseClickRequest(details, devToolsPort);
+                parseDesigerConfig(details, devToolsPort);
             }
         }
     },
@@ -127,4 +131,14 @@ chrome.webRequest.onHeadersReceived.addListener(
     ["responseHeaders"]
 );
 
+<<<<<<< HEAD
 ////::: ::- // 
+=======
+// Right Click Menu
+
+createContextMenu();
+
+
+
+////::: ::- // //// git add .
+>>>>>>> vttReactv2.3.0

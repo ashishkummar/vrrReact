@@ -22,7 +22,7 @@ export function handleImageRequest(details: chrome.webRequest.WebResponseHeaders
 
         if (devToolsPort) {
             console.log("🚀 Sending Image to DevTools:", details.url, devToolsPort);
-            devToolsPort.postMessage({ type: "IMAGE_REQUEST", url: details.url });
+            devToolsPort.postMessage({ type: "IMAGE_REQUEST", data: details.url });
         } else {
             console.warn("⚠️ DevTools port is null. Cannot send image URL.");
         }
@@ -48,7 +48,7 @@ export function parseVideoRequest(details: chrome.webRequest.WebResponseHeadersD
                 }
             };
             if(getVIDname(pixelData3)){
-               devToolsPort.postMessage({ type: "PCLIVE_REQUEST", url: getVIDname(pixelData3) });
+               devToolsPort.postMessage({ type: "PCLIVE_REQUEST", data: getVIDname(pixelData3) });
             }
         }
         } 
@@ -75,7 +75,7 @@ export function parseImpRequest(details: chrome.webRequest.WebResponseHeadersDet
                     }
                 };
                 if(getIMPname(pixelData1)){
-                devToolsPort.postMessage({ type: "IMP_REQUEST", url: getIMPname(pixelData1) });
+                devToolsPort.postMessage({ type: "IMP_REQUEST", data: getIMPname(pixelData1) });
                 }
             }
 
@@ -88,7 +88,7 @@ export function parseImpRequest(details: chrome.webRequest.WebResponseHeadersDet
                     }
                 };
                 if(getIMPname(pixelData2)){
-                devToolsPort.postMessage({ type: "IMP_REQUEST", url: getIMPname(pixelData2) });
+                devToolsPort.postMessage({ type: "IMP_REQUEST", data: getIMPname(pixelData2) });
                 }
             } else {
                 console.info("NON SE");
@@ -99,7 +99,7 @@ export function parseImpRequest(details: chrome.webRequest.WebResponseHeadersDet
                     }
                 };
                 if(getIMPname(pixelData3)){
-                  devToolsPort.postMessage({ type: "IMP_REQUEST", url: getIMPname(pixelData3) });
+                  devToolsPort.postMessage({ type: "IMP_REQUEST", data: getIMPname(pixelData3) });
                 }
             }
         } else {
@@ -129,7 +129,7 @@ export function parseClickRequest(details: chrome.webRequest.WebResponseHeadersD
                     }
                 };
                 if(getCLICKname(pixelData1)){
-                  devToolsPort.postMessage({ type: "CLICK_REQUEST", url:getCLICKname(pixelData1)});
+                  devToolsPort.postMessage({ type: "CLICK_REQUEST", data:getCLICKname(pixelData1)});
                 }
             }
 
@@ -142,7 +142,7 @@ export function parseClickRequest(details: chrome.webRequest.WebResponseHeadersD
                     }
                 };
                 if(getCLICKname(pixelData2)){
-               devToolsPort.postMessage({ type: "CLICK_REQUEST", url:getCLICKname(pixelData2)});
+               devToolsPort.postMessage({ type: "CLICK_REQUEST", data: getCLICKname(pixelData2)});
                 }
              
             }
@@ -154,7 +154,7 @@ export function parseClickRequest(details: chrome.webRequest.WebResponseHeadersD
                     }
                 };
                 if(getCLICKname(pixelData1)){
-                devToolsPort.postMessage({ type: "CLICK_REQUEST", url:getCLICKname(pixelData1)});
+                devToolsPort.postMessage({ type: "CLICK_REQUEST", data: getCLICKname(pixelData1)});
                 }
 
             }
