@@ -1,6 +1,5 @@
 import React, { ForwardedRef } from "react";
 import { PrimeIcons } from 'primereact/api';
-
 import "../styles/SmoothScroll.css";
 
 interface SmoothScrollUIProps {
@@ -8,10 +7,11 @@ interface SmoothScrollUIProps {
     data: string[];
     scrollRef: ForwardedRef<HTMLDivElement>;
     onDelete: () => void;  
+    children?: React.ReactNode;  
 
 }
 
-const SmoothScrollUI: React.FC<SmoothScrollUIProps> = ({ name, data, scrollRef, onDelete }) => {
+const SmoothScrollUI: React.FC<SmoothScrollUIProps> = ({ children, name, data, scrollRef, onDelete }) => {
 
 function flushData(){
     data=[]
@@ -22,7 +22,12 @@ function flushData(){
         <div className="smoothscroll-container">
             <div className="smoothscroll-titleHolder">
                 <span className="smoothscroll-title"> {name}</span>
-                <span  onClick={onDelete}><i className="pi pi-trash" title="Delete" style={{ fontSize: '12px', cursor:"pointer" }}></i>
+
+                {React.Children.map(children, (child) => {
+                     return <div className="Badge-Outer-wrapper"> {child}</div>;
+                 })}
+
+                  <span  onClick={onDelete}><i className="pi pi-trash" title="Delete" style={{ fontSize: '12px', cursor:"pointer" }}></i>
                 </span>
             </div>
             <div ref={scrollRef} className="smoothscroll-list">

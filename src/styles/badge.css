@@ -1,0 +1,25 @@
+.Badge-Outer-wrapper {
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+
+  
+.Badge-Outer {
+  font-weight: bold;
+  font-size: 11px;
+  text-align: center;
+  width: 22px;
+  color: #ffffff;
+  background: #037b88;
+  padding: 1px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.noselect {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

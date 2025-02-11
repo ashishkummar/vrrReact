@@ -1,5 +1,6 @@
 import { handleImageRequest, parseVideoRequest, parseImpRequest, parseClickRequest } from "../utils/filter";
 import { createContextMenu } from "../utils/rightClick";
+import {parseDesigerConfig } from "../utils/designer-config.parser";
 
 
 let devToolsPorts: { [key: number]: chrome.runtime.Port } = {}; // Stores connected DevTools ports
@@ -122,6 +123,7 @@ chrome.webRequest.onHeadersReceived.addListener(
                 parseVideoRequest(details, devToolsPort);
                 parseImpRequest(details, devToolsPort);
                 parseClickRequest(details, devToolsPort);
+                parseDesigerConfig(details, devToolsPort);
             }
         }
     },
