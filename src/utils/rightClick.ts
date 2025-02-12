@@ -73,6 +73,8 @@ export function createContextMenu() {
 // ✅ Optimized Function to Get All Information for VDX Viewer Tool
 async function getAllAdsInfo(tab: chrome.tabs.Tab) {
     if (!tab.url) return;
+
+    the_LANDING_URL="";
     
     const isVVT = tab.url.includes("/VVT/customView");
     const isCreativeVDX = tab.url.includes("creative.vdx.tv/") || tab.url.includes("vdx.exponential.com");
@@ -175,7 +177,7 @@ interface ResponseData {
 function ExtractLandingURL(data: ResponseData): string {
     let baseURL = "https://creative.exponential.com/creative/devshowcase/VVT/customView1.html";
 
-    if (data?.data?.latestRevision === "c" && data?.data?.latestVariation === 0) {
+    if (data?.data?.isCCRV ) {
         baseURL = "https://creative.exponential.com/creative/devshowcase/VVT/customView1.1.html";
     }
 

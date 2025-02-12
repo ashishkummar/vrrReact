@@ -3,12 +3,12 @@ import "../styles/badge.css";
 
 interface CBtype {
     label:string;
-    onClick?: () => void;
+    onClick?: (r:any) => void;
 }
 
 export const ClickIntBadge: React.FC<CBtype> = ({ label, onClick }) => {
     return (
-        <div className="Badge-Outer noselect" onClick={onClick}> 
+        <div className="Badge-Outer noselect" onClick={() => onClick?.("top") }> 
             {label} 
         </div>
     );
