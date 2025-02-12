@@ -43,10 +43,14 @@ module.exports = {
         { from: "public/manifest.json", to: "manifest.json" },
         { from: "public/icons", to: "icons" },
 <<<<<<< HEAD
+<<<<<<< HEAD
         { from: "src/content/content.js", to: "content.js" } // ✅ Ensure content script is copied
 =======
         { from: "src/content/content.js", to: "content.js" }  
 >>>>>>> vttReactv2.3.0
+=======
+         
+>>>>>>> vttReactv2.4.0
       ]
     }), 
     new HtmlWebpackPlugin({

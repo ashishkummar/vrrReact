@@ -53,6 +53,10 @@ chrome.runtime.onConnect.addListener((port) => {
                 console.log(`✅ DevTools connected to background with Tab ID: ${tabId}`);
                 logTabConnections();
             }
+            
+                
+
+
         });
 
         port.onDisconnect.addListener(() => {
