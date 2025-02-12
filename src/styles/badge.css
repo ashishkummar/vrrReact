@@ -23,3 +23,18 @@
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+.paintFiredPixel {
+  background-color: rgb(5, 236, 9);
+  transition: background-color 0.7s ease-in-out; /* Optional smooth transition */
+}
+
+/*  will think later abut it
+
+.paintFiredPixel {
+  background-image: url('https://media.tenor.com/UrJGtvXZTDgAAAAM/water-splash.gif');  
+  background-size: cover; 
+  background-position: center;  
+  transition: background 0.7s ease-in-out;  
+}
+*/

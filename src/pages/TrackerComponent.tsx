@@ -3,6 +3,7 @@ import SmoothScrollUI from "../Components/SmoothScroll";
 import { ClickIntBadge } from "../Components/ClickIntBadge";
 import {DialogBox} from "../Components/Dialog"
 
+
 // Define state structure and interfaces
 
 interface DapiData {
@@ -177,18 +178,40 @@ export default function TrackerComponent() {
     }, []);
 
 
-    const [isDialogVisible, setDialogVisible] = useState(false); // Manage Dialog Visibility
+    const [dialogVisible, setDialogVisible] = useState<boolean>(false); // set default visiblity here
+
+    const [position, setPosition] = useState<string>('top');
+
 
     const toggleDialog = () => {
         setDialogVisible(prev => !prev);
      };
 
+     const show = (position: string) => {
+        setPosition(position);
+        setDialogVisible(prev => !prev);
+    };
+
     return (
+        
+        
         <>  
          {state.dapiData?.intLiveData?.length ? (
-           <DialogBox visible={isDialogVisible} data={state.dapiData} onHide={() => setDialogVisible(false)} />
+            <DialogBox visible={dialogVisible} 
+            data={{ 
+                ...state.dapiData,   
+                //@ts-ignore
+                intClickFire: {
+                    I:state.impTrackers, 
+                    C:state.clickTrackers
+                }, 
+                    
+            }}  
+            onHide={() => setDialogVisible(false)} />
          ) : null}
         
+
+
 
             <SmoothScrollUI 
                 name="Video" 
@@ -208,7 +231,7 @@ export default function TrackerComponent() {
                 {state.dapiData?.intLiveData?.length ? (
                      <ClickIntBadge 
                      label={String(state.dapiData.intLiveData.length)} 
-                     onClick={toggleDialog} // 
+                     onClick={show} // 
                  />
                 ) : null}
  
@@ -222,7 +245,10 @@ export default function TrackerComponent() {
             >
               {/* SHOWING Badge for clickLive length */}
               {state.dapiData?.clickLiveData?.length ? (
-                    <ClickIntBadge label={String(state.dapiData.clickLiveData.length)} />
+                    <ClickIntBadge 
+                    label={String(state.dapiData.clickLiveData.length)}
+                    onClick={show} //
+                    />
                 ) : null}
                 
             </SmoothScrollUI> 
