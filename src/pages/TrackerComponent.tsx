@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useReducer } from "react";
+import React, { useEffect, useState, useRef, useReducer } from "react";
 import SmoothScrollUI from "../Components/SmoothScroll";
 import { ClickIntBadge } from "../Components/ClickIntBadge";
+import {DialogBox} from "../Components/Dialog"
 
 // Define state structure and interfaces
 
@@ -120,6 +121,8 @@ export default function TrackerComponent() {
         };
     }, []);
 
+  
+
     useEffect(() => {
         [impScrollRef, clickScrollRef, vidScrollRef].forEach(ref => {
             if (ref.current) {
@@ -173,8 +176,20 @@ export default function TrackerComponent() {
         };
     }, []);
 
+
+    const [isDialogVisible, setDialogVisible] = useState(false); // Manage Dialog Visibility
+
+    const toggleDialog = () => {
+        setDialogVisible(prev => !prev);
+     };
+
     return (
-        <>
+        <>  
+         {state.dapiData?.intLiveData?.length ? (
+           <DialogBox visible={isDialogVisible} data={state.dapiData} onHide={() => setDialogVisible(false)} />
+         ) : null}
+        
+
             <SmoothScrollUI 
                 name="Video" 
                 onDelete={() => deleteData("PCLIVE_REQUEST")} 
@@ -187,19 +202,16 @@ export default function TrackerComponent() {
                 onDelete={() => deleteData("IMP_REQUEST")} 
                 data={state.impTrackers} 
                 scrollRef={impScrollRef} 
-            >
-
-             
+            > 
 
                 {/* SHOWING Badge for intLive length */}
                 {state.dapiData?.intLiveData?.length ? (
-                       <ClickIntBadge label={String(state.dapiData.intLiveData.length)} />
+                     <ClickIntBadge 
+                     label={String(state.dapiData.intLiveData.length)} 
+                     onClick={toggleDialog} // 
+                 />
                 ) : null}
-
-
-                  
-                  
-            
+ 
             </SmoothScrollUI>
 
             <SmoothScrollUI 

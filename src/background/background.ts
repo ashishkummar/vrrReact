@@ -53,6 +53,25 @@ chrome.runtime.onConnect.addListener((port) => {
                 console.log(`✅ DevTools connected to background with Tab ID: ${tabId}`);
                 logTabConnections();
             }
+            
+                // Getting data from header to pass in further to content
+
+                if (message.type === "sendToContent" && message.tabId) {
+                    console.log(`📤 Forwarding message to content script on tab: ${message.tabId}`);
+            
+                    chrome.tabs.sendMessage(message.tabId, { 
+                        action: "openDashboardPage", 
+                        data: message.data 
+                    }, (response) => {
+                        if (chrome.runtime.lastError) {
+                            console.error("❌ Failed to send message via sendMessage:", chrome.runtime.lastError.message);
+                        } else {
+                            console.log("✅ Message successfully sent to content script:", response);
+                        }
+                    });
+                }
+
+
         });
 
         port.onDisconnect.addListener(() => {
