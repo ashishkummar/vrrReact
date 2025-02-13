@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef, useReducer } from "react";
-import SmoothScrollUI from "../Components/SmoothScroll";
+import {SmoothScrollUI} from "../Components/SmoothScroll";
 import { ClickIntBadge } from "../Components/ClickIntBadge";
 import {DialogBox} from "../Components/Dialog"
+import {ExpoTaskPixelsWindow} from "../Components/ExpoTaskPixelsWindow"
 
 
 // Define state structure and interfaces
@@ -252,6 +253,10 @@ export default function TrackerComponent() {
                 ) : null}
                 
             </SmoothScrollUI> 
+             
+             <ExpoTaskPixelsWindow data="s"/>
+
+            
         </>
     );
 }

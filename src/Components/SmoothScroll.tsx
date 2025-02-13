@@ -11,7 +11,7 @@ interface SmoothScrollUIProps {
 
 }
 
-const SmoothScrollUI: React.FC<SmoothScrollUIProps> = ({ children, name, data, scrollRef, onDelete }) => {
+export const SmoothScrollUI: React.FC<SmoothScrollUIProps> = ({ children, name, data, scrollRef, onDelete }) => {
 
 function flushData(){
     data=[]
@@ -41,4 +41,4 @@ function flushData(){
     );
 };
 
-export default SmoothScrollUI;
+//export default SmoothScrollUI;
