@@ -26,6 +26,25 @@ vrrReact/
 
 # Project Structure
 
+📦public
+ ┣ 📂icons
+ ┃ ┣ 📜disconnect.png
+ ┃ ┣ 📜expotask-logo.png
+ ┃ ┣ 📜icon.png
+ ┃ ┣ 📜icon128.png
+ ┃ ┣ 📜icon16.png
+ ┃ ┣ 📜icon32.png
+ ┃ ┣ 📜icon48.png
+ ┃ ┗ 📜reactlogo.svg
+ ┣ 📜.DS_Store
+ ┣ 📜Devtools.tsx
+ ┣ 📜devtools.html
+ ┣ 📜manifest.json
+ ┣ 📜options.html
+ ┣ 📜panel.html
+ ┣ 📜popup.html
+ ┗ 📜template.html
+
 📦 src  
  ┣ 📂 Components  
  ┃ ┣ 📜 ClickIntBadge.tsx  
@@ -72,7 +91,8 @@ vrrReact/
  ┣ 📜 index.tsx  
  ┗ 📜 react-app-env.d.ts  
 
-  
+📜 package.json
+📜 tsconfig.json 
 
 🚀 Getting Started
  
