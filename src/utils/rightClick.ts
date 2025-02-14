@@ -1,4 +1,9 @@
+import eventBus from "./eventBus";  
+
+let storedCreativeRequests: any[] | null = null;
+
 let the_LANDING_URL="";
+ 
 
 export function createContextMenu() {
     //   the parent menu
@@ -115,7 +120,7 @@ async function getAllAdsInfo(tab: chrome.tabs.Tab) {
         extractAdUnitInfoDataForSE(_theHashID); // ◀️ passing id here for another method
 
        } else {
-        console.log("Data Extrected for ", _theHashID, data);
+        console.log("Data Extrected for from demo pages ", _theHashID, data);
        }
     } catch (error: any) {
       console.info(null, error?.message ?? error);
@@ -125,24 +130,52 @@ async function getAllAdsInfo(tab: chrome.tabs.Tab) {
   /////////
  
 
+
+
+
   async function extractAdUnitInfoDataForSE(_id: string) {
     try {
      
     console.info(`Fetching data from modern URL 👍 ${_moderURL} ${_id}`);
     const response = await fetch(`${_moderURL}${_id}/demopages?published=true`);
     const data = await response.json();
-       
+     
     the_LANDING_URL = ExtractLandingURL(data);
+    
+    console.log("data from demo pages 🧏‍♀️ ",  data.data.urls[0].creativeRequestId);
 
     console.log( data, ":::: " , the_LANDING_URL )
     
+      /*****/
+      storedCreativeRequests = data.data.urls; // Store the data
+      eventBus.emit("dataAvailable", storedCreativeRequests); // Emit event when data is ready
+
+
+
  
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
 
-  
+
+ 
+// Function to get stored data (returns a Promise)
+export function getAllcreativeRequestId(): Promise<any[]> {
+  return new Promise((resolve) => {
+    if (storedCreativeRequests) {
+      console.log("✅ Returning Cached Data:", storedCreativeRequests);
+      resolve(storedCreativeRequests);
+    } else {
+      console.log("⏳ Waiting for event...");
+      eventBus.on("dataAvailable", (data) => {
+        //console.log("🔥 Resolving Data:", data);
+        resolve(data);
+      });
+    }
+  });
+}
+
 //::// the_LANDING_URL creation ---------------------------------------
 
   interface Media {
@@ -193,3 +226,5 @@ function ExtractLandingURL(data: ResponseData): string {
 
     return `${baseURL}?DExp=${DExp}&DInf=${DInf}&VCmi=${VCmi ? VCmi.mockid + "_" + VCmi.ad_size : ""}&VCme=${VCme ? VCme.mockid + "_" + VCme.ad_size : ""}&CTV=${CTV}&isCCRV=${isCCRV}&latestRevision=${latestRevision}&latestVariation=${latestVariation}`;
 }
+
+

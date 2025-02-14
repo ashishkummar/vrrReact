@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef, useReducer } from "react";
 import {SmoothScrollUI} from "../Components/SmoothScroll";
 import { ClickIntBadge } from "../Components/ClickIntBadge";
 import {DialogBox} from "../Components/Dialog"
-import {ExpoTaskPixelsWindow} from "../Components/ExpoTaskPixelsWindow"
+import {ExpoTaskPixelsWindow} from "../Components/ExpoTaskPixelsWindow";
+import Footer from "../Components/Footer";  
 
 
 // Define state structure and interfaces
@@ -92,7 +93,7 @@ export default function TrackerComponent() {
         }
     
         const messageListener = (message: { type: string; data: any }) => {
-            console.log("📩 Received message:", message);
+            //console.log("📩 Received message:", message);
     
             switch (message.type) {
                 case "IMP_REQUEST":
@@ -135,7 +136,7 @@ export default function TrackerComponent() {
 
     useEffect(() => {
         if (state.videoPCliveTrackers.length > 0 || state.clickTrackers.length > 0) {
-            console.log("🆕 Updated State:", state);
+           // console.log("🆕 Updated State:", state);
         }
     }, [state]);
 
@@ -253,10 +254,11 @@ export default function TrackerComponent() {
                 ) : null}
                 
             </SmoothScrollUI> 
-             
-             <ExpoTaskPixelsWindow data="s"/>
 
-            
+             {/* SHOWING ExpoTask Pixels */}
+            <ExpoTaskPixelsWindow data={{ firedC: state.clickTrackers, firedI: state.impTrackers }}/>
+
+            <Footer />
         </>
     );
 }

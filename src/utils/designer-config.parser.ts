@@ -13,7 +13,7 @@ export function parseDesigerConfig(details: chrome.webRequest.WebResponseHeaders
         
         parseDesignerConfigData(details.url)
             .then((parsedData) => {
-                console.log("Parsed Data:", parsedData); // ✅ Now logs all expected data
+                //console.log("Parsed Data:", parsedData); // ✅ Now logs all expected data
 
                 if (devToolsPort) {
                     devToolsPort.postMessage({ type: "DAPI_DATA", data: parsedData });
@@ -124,12 +124,12 @@ function parseDesignerConfigData(url: string): Promise<{
             isDesiParsed = true; // Mark parsing as successful
 
             // ✅ Log results for debugging
-            console.log("Parsed clickLiveData:", clickLiveData);
-            console.log("Parsed intLiveData:", intLiveData);
+            //console.log("Parsed clickLiveData:", clickLiveData);
+            //console.log("Parsed intLiveData:", intLiveData);
             console.log("Parsed intLiveDynamicData:", intLiveDynamicData);
             console.log("Parsed lineBreaksOpenUrl:", lineBreaksOpenUrl);
             console.log("dapiContent length:", dapiContent.length); // ✅ Confirming dapiContent is captured
-            console.log("isDesiParsed:", isDesiParsed);
+            //console.log("isDesiParsed:", isDesiParsed);
 
             return {
                 clickLiveData: clickLiveData.filter(Boolean),

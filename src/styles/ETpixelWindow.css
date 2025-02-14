@@ -27,7 +27,7 @@
 /* Scrollable List */
 .smoothscroll-list {
     width: 100%;
-    height: 133px;
+    height: 184px;
     overflow-y: auto;
     border: 1px solid #475569;
     padding: 5px;
@@ -108,3 +108,10 @@
     padding: 5px;
     font-size: clamp(12px, 1vw, 18px); /* Resizable text */
 }
+
+
+.paintFiredPixel {
+    background-color: rgb(5, 236, 9);
+    transition: background-color 0.7s ease-in-out; /* Optional smooth transition */
+  }
+  

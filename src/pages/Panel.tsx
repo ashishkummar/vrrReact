@@ -3,8 +3,10 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 
+
 import { createRoot } from "react-dom/client";
 import { Header } from "../Components/Header";
+import Footer from "../Components/Footer";  
  
 import  TrackerComponent from "./TrackerComponent"
 
@@ -15,8 +17,9 @@ const Panel = () => {
         <div>
               <Header/>
               <TrackerComponent />
+              <Footer />
 
-        <p>Welcome to the DevTools Panel!</p>
+         
       </div>
     );
 };
