@@ -137,7 +137,12 @@ chrome.webRequest.onHeadersReceived.addListener(
 
 // Right Click Menu
 
+let menuCreated = false;
+
+if(!menuCreated){ 
 createContextMenu();
+menuCreated=true;
+}
 
 
 

@@ -7,10 +7,9 @@ const Popup = () => {
 
   return (
     <div className="popup-container">
-      <h2>Welcome to My Chrome Extension!  <br/> Boilerplate Code 1.0 🚀</h2>
-      <p>Click count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Click Me</button>
-      <h6> <a href="https://github.com/ashishkummar" target="_blank"> Developed By Ashishkummar  </a></h6>
+      <h2>VDX Testing Tool </h2>
+      <p> Built with React.js and Chrome Extension API (Manifest Version 3)</p>
+       <h6> <a href="https://stash.exponential.com/profile" target="_blank"> Developed By ashish.kumar@vdx.tv  </a></h6>
     </div>
   );
 };

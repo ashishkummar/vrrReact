@@ -9,23 +9,25 @@ export function createContextMenu() {
     //   the parent menu
     chrome.contextMenus.create({
       id: "vdxViewer",
-      title: "VDX Viewer",
+      title: " ⚙️ VDX Viewer",
       contexts: ["page"]
     });
   
     //   child menu
+    /*
     chrome.contextMenus.create({
       id: "customVDXView",
-      title: "Custom VDX View",
+      title: "custom VDX View",
       parentId: "vdxViewer",
       contexts: ["page"]
     });
+    */
   
     console.log("Context menus created successfully!");
   
     // Handle right-click menu click
     chrome.contextMenus.onClicked.addListener((info, tab) => {
-      if (info.menuItemId === "customVDXView") {
+      //if (info.menuItemId === "customVDXView") {
         if (tab?.url?.includes("vdx.tv") || tab?.url?.includes("creative.vdx.tv")) {
           const customURL = "https://creative.exponential.com/creative/devshowcase/VVT/customView1.html";
          } else {
@@ -45,14 +47,16 @@ export function createContextMenu() {
       
       // console.info(adUnits);
       
-          console.log("the_LANDING_URL :: 🌐 ",the_LANDING_URL)
-          chrome.tabs.create({ url: the_LANDING_URL });
+          console.log("the_LANDING_URL :: 🌐 ",the_LANDING_URL, the_LANDING_URL.length)
+
+           
+         !the_LANDING_URL?  chrome.tabs.reload()  : chrome.tabs.create({ url: the_LANDING_URL });
 
         
         // chrome.tabs.create({ url: _tempDeskInf });
 
          ///////
-      }
+      //}
     });
   }
  
@@ -67,10 +71,13 @@ export function createContextMenu() {
    // ✅   Tab Update Listener  This will be called when page will load or reload...
    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === "complete") {
-      console.log("Tab Refreshed");
-     // resetVarsNmore();
-      getAllAdsInfo(tab);
-     // checkWebAddress(tab);
+           console.log("Tab Refreshed ", tab.url);
+        // resetVarsNmore();
+        // Check if the refreshed tab URL matches "https://creative.vdx.tv/"
+          if (tab.url && tab.url.startsWith("https://creative.vdx.tv/")) {
+            getAllAdsInfo(tab);
+          }
+       // checkWebAddress(tab);
     }
   });
 
@@ -145,6 +152,8 @@ async function getAllAdsInfo(tab: chrome.tabs.Tab) {
     console.log("data from demo pages 🧏‍♀️ ",  data.data.urls[0].creativeRequestId);
 
     console.log( data, ":::: " , the_LANDING_URL )
+
+ 
     
       /*****/
       storedCreativeRequests = data.data.urls; // Store the data

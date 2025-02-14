@@ -1,10 +1,12 @@
 .tickerWrapper {
+    border-radius: 50px;
+    background-color: #f1f1f1;
     display: flex;
     align-items: center;
     align-content: center;
     margin-left: 10px;
-    font-size: 11px;
-    width: 150px;
+    font-size: 9px;
+    width: 104px;
 }
 
 .ticker {

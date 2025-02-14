@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "React Chrome Extension",
-  "version": "1.0",
+  "name": "VTT React",
+  "version": "1.0.0",
   "description": "A Chrome extension built with React and Manifest V3",
   "permissions": ["webRequest", "contextMenus", "notifications", 
   "activeTab", "storage", "tabs", 

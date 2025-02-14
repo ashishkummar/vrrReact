@@ -4,6 +4,9 @@
   import { Button } from "primereact/button";
   import { Menu } from "primereact/menu";
   import { Updater } from "./Updater"; 
+
+
+   import "../styles/Header.css"; // Import CSS for styling
    
   
   export const Header: React.FC = () => {
@@ -12,8 +15,8 @@
   
     // Menu Items
     const menuItems = [
-      { label: "Dashboard", icon: "pi pi-home", command: () => console.log("Go to Dashboard") },
-      { label: "Settings", icon: "pi pi-cog", command: () => console.log("Open Settings") },
+      //{ label: "Dashboard", icon: "pi pi-home", command: () => console.log("Go to Dashboard") },
+      //{ label: "Settings", icon: "pi pi-cog", command: () => console.log("Open Settings") },
       { label: "Version "+currentVersion, icon: "pi pi-sign-out", command: () => console.log("Logging out") },
     ];
   
@@ -21,7 +24,10 @@
     const start = (
         <div style={{display:"flex", alignItems: "center", gap: "8px" }} className="flex items-center space-x-2 h-10">
         <img alt="Logo" width="30" height="30" src="icons/icon16.png"/>
-        <span className="text-lg font-semibold"> VTT</span>
+        <div className="logoTextHolder">
+        <span className="text-lg font-semibold"> VDX Testing Tool  </span>
+        <span className="logoTextHolderSlogan">Build on React.js     </span>
+        </div>
         <Updater ver ={currentVersion} />
     </div>
     
