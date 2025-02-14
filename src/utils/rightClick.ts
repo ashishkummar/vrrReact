@@ -1,4 +1,5 @@
 import eventBus from "./eventBus";  
+ 
 
 let storedCreativeRequests: any[] | null = null;
 
@@ -40,21 +41,14 @@ export function createContextMenu() {
               
         }
         /////
-
  
+         console.log("the_LANDING_URL :: 🌐 ",the_LANDING_URL, the_LANDING_URL.length)
  
-    //   let _tempDeskInf=   buildLPurl( adUnits);
-      
-      // console.info(adUnits);
-      
-          console.log("the_LANDING_URL :: 🌐 ",the_LANDING_URL, the_LANDING_URL.length)
-
-           
-         !the_LANDING_URL?  chrome.tabs.reload()  : chrome.tabs.create({ url: the_LANDING_URL });
-
+          
         
-        // chrome.tabs.create({ url: _tempDeskInf });
-
+         !the_LANDING_URL?  chrome.tabs.reload()  : chrome.tabs.create({ url: the_LANDING_URL });
+          
+      
          ///////
       //}
     });

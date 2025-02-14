@@ -3,9 +3,12 @@ import "../styles/ETpixelWindow.css";
 import { loadPixlFromET } from "../utils/expoTaskapi";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+import { trackEvent } from "../utils/trackEvent";    
+
 
 import eventBus from "../utils/eventBus"; // Import the event bus
 import { getAllcreativeRequestId } from "../utils/rightClick";
+
 
 interface SmoothScrollUIProps {
     data: {
@@ -23,10 +26,8 @@ export const ExpoTaskPixelsWindow: React.FC<SmoothScrollUIProps> = (  {data}  ) 
 
 
   useEffect(()=>{
-    console.log("fired ", data)
-
-
-  },[data])
+     trackEvent("pixel_on_expotask_opened");
+   },[visible])
 
 
       //

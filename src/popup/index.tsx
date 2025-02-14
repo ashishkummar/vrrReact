@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { trackEvent } from "../utils/trackEvent";    
 import { createRoot } from "react-dom/client";
 import "./popup.css";
 
 const Popup = () => {
   const [count, setCount] = useState(0);
+
+
+
+  useEffect(() => {
+    console.log("popup_opened")
+    trackEvent("popup_opened");
+}, []);
 
   return (
     <div className="popup-container">

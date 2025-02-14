@@ -6,10 +6,13 @@
   "permissions": ["webRequest", "contextMenus", "notifications", 
   "activeTab", "storage", "tabs", 
   "declarativeNetRequestWithHostAccess", "declarativeNetRequest", "scripting"],
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": ["https://www.google-analytics.com/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
+  },
+  "externally_connectable": {
+    "matches": ["https://www.google-analytics.com/*"]
   },
   "devtools_page": "devtools.html",
   "action": {

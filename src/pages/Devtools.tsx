@@ -1,3 +1,7 @@
+import { trackEvent } from "../utils/trackEvent";    
+
+
+
 (() => {
   "use strict";
 
@@ -10,6 +14,8 @@
 
           panel.onShown.addListener(() => {
               console.log("DevTools panel is now OPEN");
+                  trackEvent("devTools_panel_opened");
+              
 
               // Reload the active tab when the panel is opened
               chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

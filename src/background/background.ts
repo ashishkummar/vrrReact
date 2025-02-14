@@ -1,6 +1,10 @@
 import { handleImageRequest, parseVideoRequest, parseImpRequest, parseClickRequest } from "../utils/filter";
 import { createContextMenu } from "../utils/rightClick";
 import {parseDesigerConfig } from "../utils/designer-config.parser";
+import { trackEvent } from "../utils/analytics";
+
+
+
 
 
 let devToolsPorts: { [key: number]: chrome.runtime.Port } = {}; // Stores connected DevTools ports
@@ -140,10 +144,43 @@ chrome.webRequest.onHeadersReceived.addListener(
 let menuCreated = false;
 
 if(!menuCreated){ 
-createContextMenu();
-menuCreated=true;
+   createContextMenu();
+   menuCreated=true;
 }
 
 
 
-////::: ::- // //// git add .
+////::: ::- // //// for tracking -----------------
+// Track extension installation
+
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "trackEvent") {
+        fetch(
+            `https://www.google-analytics.com/mp/collect?measurement_id=G-GM5NWSM97Z&api_secret=5QbloJVXSjGD2j50zqAS1w`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    client_id: crypto.randomUUID(),
+                    events: [{ name: request.eventName, params: request.eventParams }]
+                })
+            }
+        )
+        .then(response => sendResponse({ success: true }))
+        .catch(error => sendResponse({ success: false, error: error.message }));
+        return true; // Keep the message channel open for async response
+    }
+});
+
+
+
+// Track extension installation
+chrome.runtime.onInstalled.addListener(() => {
+    trackEvent("extension_installed");
+});
+
+// Track when the user clicks the extension icon
+chrome.action.onClicked.addListener(() => {
+    trackEvent("extension_icon_clicked");
+});
