@@ -3,6 +3,8 @@ import "../styles/ETpixelWindow.css";
 import { loadPixlFromET } from "../utils/expoTaskapi";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+import { ProgressBar } from 'primereact/progressbar';
+
 
 import eventBus from "../utils/eventBus"; // Import the event bus
 import { getAllcreativeRequestId } from "../utils/rightClick";
@@ -24,9 +26,7 @@ export const ExpoTaskPixelsWindow: React.FC<SmoothScrollUIProps> = (  {data}  ) 
 
   useEffect(()=>{
     console.log("fired ", data)
-
-
-  },[data])
+   },[data])
 
 
       //
@@ -90,6 +90,23 @@ export const ExpoTaskPixelsWindow: React.FC<SmoothScrollUIProps> = (  {data}  ) 
   const impressionEvents = ETData.filter((item) => item.event_name === "Impression").map((item) => item.description);
   const maxRows = Math.max(clickEvents.length, impressionEvents.length);
 
+// Filter divs that have text
+const validClickEvents = clickEvents.filter(event => event && event.trim() !== "");
+const validImpressionEvents = impressionEvents.filter(event => event && event.trim() !== "");
+
+const totalTextDivs = validClickEvents.length + validImpressionEvents.length;
+
+// Count green divs
+const greenClickDivs = validClickEvents.filter(event => data.firedC.includes(event)).length;
+const greenImpressionDivs = validImpressionEvents.filter(event => data.firedI.includes(event)).length;
+
+const greenDivs = greenClickDivs + greenImpressionDivs;
+
+// Calculate progress percentage
+const progress = totalTextDivs > 0 ? Math.round( (greenDivs / totalTextDivs) * 100) : 0;
+
+
+
   function clickcheckET() {
      
       if(!cReqIds) return;
@@ -104,9 +121,12 @@ export const ExpoTaskPixelsWindow: React.FC<SmoothScrollUIProps> = (  {data}  ) 
           &nbsp; Pixels on &nbsp;
           <img style={{ width: "20%" }} src="./icons/expotask-logo.png" />
         </Button>
+         
         <Dialog 
         header={
+          
             <div style={{ display: "flex", alignItems: "center" }}>
+
               <span>Pixels on</span>
               <img onClick={clickcheckET}
                 src="./icons/expotask-logo.png"
@@ -117,9 +137,15 @@ export const ExpoTaskPixelsWindow: React.FC<SmoothScrollUIProps> = (  {data}  ) 
           }
         
         visible={visible} maximizable style={{ width: "95vw" }} onHide={() => setVisible(false)}>
-          <div className="grid-container">
-            <div className="grid-row header">
-              <div className="grid-cell">Click</div>
+          {/* Progress Bar inside the Dialog */}
+          <ProgressBar style={{ height: '6px', fontSize: "7px" }} value={progress} />
+
+          <div className="spacerV"></div>
+
+           <div className="grid-container">
+            <div className="grid-row header">                      
+
+              <div className="grid-cell">Click </div>
               <div className="grid-cell">Impression</div>
             </div>
             {Array.from({ length: maxRows }).map((_, index) => (
