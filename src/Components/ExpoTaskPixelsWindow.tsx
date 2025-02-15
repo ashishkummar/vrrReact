@@ -3,7 +3,7 @@ import "../styles/ETpixelWindow.css";
 import { loadPixlFromET } from "../utils/expoTaskapi";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { trackEvent } from "../utils/trackEvent";    
+import { logEvent } from      "../utils/firebase/firebase-config";
 
 
 import eventBus from "../utils/eventBus"; // Import the event bus
@@ -26,7 +26,8 @@ export const ExpoTaskPixelsWindow: React.FC<SmoothScrollUIProps> = (  {data}  ) 
 
 
   useEffect(()=>{
-     trackEvent("pixel_on_expotask_opened");
+         logEvent("pixel_on_expotask_opened", { source: "ChromeExtension" });
+    
    },[visible])
 
 

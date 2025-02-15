@@ -1,8 +1,10 @@
 import { handleImageRequest, parseVideoRequest, parseImpRequest, parseClickRequest } from "../utils/filter";
 import { createContextMenu } from "../utils/rightClick";
 import {parseDesigerConfig } from "../utils/designer-config.parser";
-import { trackEvent } from "../utils/analytics";
+//import { trackEvent } from "../utils/analytics";
 
+// fire store tracking
+import { logEvent } from      "../utils/firebase/firebase-config";
 
 
 
@@ -151,9 +153,9 @@ if(!menuCreated){
 
 
 ////::: ::- // //// for tracking -----------------
-// Track extension installation
+// Track extension installation google Analutic . will use later if requires
 
-
+/*
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "trackEvent") {
         fetch(
@@ -172,15 +174,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return true; // Keep the message channel open for async response
     }
 });
-
+*/
 
 
 // Track extension installation
 chrome.runtime.onInstalled.addListener(() => {
-    trackEvent("extension_installed");
+   // trackEvent("extension_installed");
+       logEvent("extension_installed", { source: "ChromeExtension" });
+   
 });
 
 // Track when the user clicks the extension icon
 chrome.action.onClicked.addListener(() => {
-    trackEvent("extension_icon_clicked");
+    //trackEvent("extension_icon_clicked");
+        logEvent("extension_icon_clicked", { source: "ChromeExtension" });
+    
 });

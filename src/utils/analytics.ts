@@ -1,5 +1,5 @@
-const GA4_MEASUREMENT_ID = "G-GM5NWSM97Z";  // Replace with your GA4 ID
-const API_SECRET = "5QbloJVXSjGD2j50zqAS1w";  // Get from GA4 Admin > Data Streamsconst GA4_MEASUREMENT_ID = "G-XXXXXXXXXX";  // Replace with your ID
+const GA4_MEASUREMENT_ID = "G-GM5NWSM97Z";  //  
+const API_SECRET = "5QbloJVXSjGD2j50zqAS1w";  //  
  
 const CLIENT_ID = crypto.randomUUID();  // Unique user identifier
 

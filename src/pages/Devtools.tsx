@@ -1,4 +1,4 @@
-import { trackEvent } from "../utils/trackEvent";    
+ import { logEvent } from  "../utils/firebase/firebase-config";
 
 
 
@@ -14,8 +14,7 @@ import { trackEvent } from "../utils/trackEvent";
 
           panel.onShown.addListener(() => {
               console.log("DevTools panel is now OPEN");
-                  trackEvent("devTools_panel_opened");
-              
+                       logEvent("devTools_panel_opened", { source: "ChromeExtension" }); 
 
               // Reload the active tab when the panel is opened
               chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

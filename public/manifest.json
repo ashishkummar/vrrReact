@@ -6,7 +6,10 @@
   "permissions": ["webRequest", "contextMenus", "notifications", 
   "activeTab", "storage", "tabs", 
   "declarativeNetRequestWithHostAccess", "declarativeNetRequest", "scripting"],
-  "host_permissions": ["https://www.google-analytics.com/*"],
+  "host_permissions": ["https://www.google-analytics.com/*","https://vttreact-default-rtdb.firebaseio.com/*"],
+"content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
   "background": {
     "service_worker": "background.js",
     "type": "module"
