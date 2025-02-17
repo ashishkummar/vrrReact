@@ -15,7 +15,7 @@
 
   export const Header: React.FC  = ( ) => {
     const menuRef = React.useRef<Menu>(null);
-    const currentVersion="9.0.0"; // Current version of this component
+    const currentVersion="9.1.0"; // Current version of this component
 
  
 
