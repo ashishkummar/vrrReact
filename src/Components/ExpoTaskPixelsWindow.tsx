@@ -138,8 +138,9 @@ const progress = totalTextDivs > 0 ? Math.round( (greenDivs / totalTextDivs) * 1
         
         visible={visible} maximizable style={{ width: "95vw" }} onHide={() => setVisible(false)}>
           {/* Progress Bar inside the Dialog */}
-          <ProgressBar style={{ height: '6px', fontSize: "7px" }} value={progress} />
+          <ProgressBar style={{ height: '7px', fontSize: "6px" }} value={progress} />
 
+          <div className="spacerV"> verify ExpoTask's pixel firing</div>
           <div className="spacerV"></div>
 
            <div className="grid-container">
@@ -154,7 +155,7 @@ const progress = totalTextDivs > 0 ? Math.round( (greenDivs / totalTextDivs) * 1
   className={`grid-cell ${data.firedC.includes(clickEvents[index]) ? "paintFiredPixel" : ""}`}
 >
   {clickEvents[index] || ""}
-</div>
+</div> 
 
 <div
   className={`grid-cell ${data.firedI.includes(impressionEvents[index]) ? "paintFiredPixel" : ""}`}

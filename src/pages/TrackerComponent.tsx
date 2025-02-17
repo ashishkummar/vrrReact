@@ -258,6 +258,10 @@ export default function TrackerComponent() {
              {/* SHOWING ExpoTask Pixels */}
             <ExpoTaskPixelsWindow data={{ firedC: state.clickTrackers, firedI: state.impTrackers }}/>
 
+
+            
+
+
             <Footer />
         </>
     );

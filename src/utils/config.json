@@ -1,0 +1,9 @@
+{ 
+  "releasedVersion":"9.0.0",
+  "downloadLink":"https://exponential.app.box.com/folder/307538114040",
+  "remote":"https://creative.exponential.com/creative/devshowcase/VTTreact/",
+  "previousDownloadLink":"https://exponential.app.box.com/folder/307829980280", 
+  "alarm": {
+    "notification1":"As a result of recent updates on the framework's end, you might encounter some challenges while utilizing VTT. Rest assured, these issues are being actively addressed and will be resolved in an upcoming version in the near future."
+  }
+}

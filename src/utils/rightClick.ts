@@ -9,7 +9,7 @@ export function createContextMenu() {
     //   the parent menu
     chrome.contextMenus.create({
       id: "vdxViewer",
-      title: " ⚙️ VDX Viewer",
+      title: "VDX Viewer",
       contexts: ["page"]
     });
   
@@ -20,7 +20,7 @@ export function createContextMenu() {
       title: "custom VDX View",
       parentId: "vdxViewer",
       contexts: ["page"]
-    });
+    }); 
     */
   
     console.log("Context menus created successfully!");

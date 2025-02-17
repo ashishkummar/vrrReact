@@ -27,7 +27,7 @@ export const Updater = ({ ver }:{ver:string}) => {
     const [updateNow, setUpdateNow] = useState(false);
 
     const version = ver 
-    const _confJson = "https://creative.exponential.com/creative/devshowcase/VTT/config.json?r=" + new Date().getTime();
+    const _confJson = "https://creative.exponential.com/creative/devshowcase/VTTreact/config.json?r=" + new Date().getTime();
 
     useEffect(() => {
         const fetchData = async () => {
