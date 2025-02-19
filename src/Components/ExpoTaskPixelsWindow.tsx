@@ -116,7 +116,7 @@ const progress = totalTextDivs > 0 ? Math.round( (greenDivs / totalTextDivs) * 1
 
   return (
     <>
-     <div className="card flex justify-content-center">
+     <div style={{resize:'both'}} className="card flex justify-content-center">
         <Button style={{ width: "100%" }} className="dark-button" onClick={() => setVisible(true)}>
           &nbsp; Pixels on &nbsp;
           <img style={{ width: "20%" }} src="./icons/expotask-logo.png" />
@@ -151,17 +151,30 @@ const progress = totalTextDivs > 0 ? Math.round( (greenDivs / totalTextDivs) * 1
             </div>
             {Array.from({ length: maxRows }).map((_, index) => (
               <div className="grid-row" key={index}>
-                <div
-  className={`grid-cell ${data.firedC.includes(clickEvents[index]) ? "paintFiredPixel" : ""}`}
->
+{/*
+     <div className={`grid-cell ${data.firedC.includes(clickEvents[index]) ? "paintFiredPixel" : ""}`} > {clickEvents[index] || ""}</div> 
+     <div className={`grid-cell ${data.firedI.includes(impressionEvents[index]) ? "paintFiredPixel" : ""}`} > {impressionEvents[index] || ""}</div>
+*/}
+
+<div className={`grid-cell ${
+  data.firedC.some(event => {
+    console.log("Comparing:", event, "with", clickEvents[index], (event===clickEvents[index]));
+    return event === clickEvents[index];
+  }) ? "paintFiredPixel" : ""
+}`}>
   {clickEvents[index] || ""}
 </div> 
 
-<div
-  className={`grid-cell ${data.firedI.includes(impressionEvents[index]) ? "paintFiredPixel" : ""}`}
->
+<div className={`grid-cell ${
+  data.firedI.some(event => {
+    console.log("Comparing:", event, "with", impressionEvents[index], (event===impressionEvents[index]));
+    return event === impressionEvents[index];
+  }) ? "paintFiredPixel" : ""
+}`}>
   {impressionEvents[index] || ""}
 </div>
+
+
 
               </div>
             ))}
@@ -171,6 +184,19 @@ const progress = totalTextDivs > 0 ? Math.round( (greenDivs / totalTextDivs) * 1
               </div>
             )}
           </div>
+          
+          {/*Tracking Mismatched Pixels, :~: Kept for later use. */}
+           {/* 
+          {(data.firedC.some(event => !clickEvents.includes(event)) || 
+           data.firedI.some(event => !impressionEvents.includes(event))) && (
+          <div className="missMatchedPixels"> 
+            {data.firedC.filter(event => !clickEvents.includes(event)).join(", ")} 
+            {data.firedI.filter(event => !impressionEvents.includes(event)).join(", ")}
+          </div>
+          )}
+           */}
+
+
         </Dialog>
       </div>
     </>

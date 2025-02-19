@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "VTT React",
-  "version": "9.0.0",
+  "version": "9.1.1",
   "description": "A Chrome extension built with React and Manifest V3",
   "icons": {
     "16": "icons/icon16.png",

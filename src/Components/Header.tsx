@@ -15,10 +15,8 @@
 
   export const Header: React.FC  = ( ) => {
     const menuRef = React.useRef<Menu>(null);
-    const currentVersion="9.1.0"; // Current version of this component
-
+    const currentVersion="9.1.1"; // Current version of this component // 19 feb 2025
  
-
   // This is open VDX Showcase Manager 
   function openShowCaseManager(url:string) {
     // Create the new window
